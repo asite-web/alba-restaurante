@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ALBA – Cocina de Origen & Brasa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F7F5F0;--card:#fff;--ink:#2a3328;--mut:#66705f;--line:#e2ddd2;--olive:#3B4A39;--terra:#C86D51;--bronze:#9E7B4F;--chip:#ece8dd;--hero:#3B4A39;--hero-ink:#F7F5F0;--on-terra:#fff;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1b211a;--card:#252d24;--ink:#f1eee6;--mut:#a9b3a0;--line:#37412f;--chip:#2f382d;--hero:#2c372b;--bronze:#c19c6b}}
+:root[data-theme="dark"]{--bg:#1b211a;--card:#252d24;--ink:#f1eee6;--mut:#a9b3a0;--line:#37412f;--chip:#2f382d;--hero:#2c372b;--bronze:#c19c6b}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+h1,h2,h3{font-family:"Cormorant Garamond",Georgia,serif;margin:0;line-height:1.1}
+.wrap{max-width:720px;margin:0 auto}
+.hero{background:var(--hero);color:var(--hero-ink);padding:34px 20px 26px;text-align:center}
+.hero svg{width:92px;height:auto;color:var(--hero-ink)}
+.hero h1{font-size:clamp(46px,13vw,68px);font-weight:700;letter-spacing:.22em;margin-right:-.22em}
+.sub{color:#d9b98a;font-family:"Cormorant Garamond",Georgia,serif;font-size:21px;font-style:italic;margin-top:4px}
+.desc{margin:16px auto 0;max-width:52ch;opacity:.92;text-align:left;font-size:15px}
+.badge{display:inline-block;margin-top:16px;border-radius:999px;padding:5px 14px;font-size:14px;font-weight:600;background:rgba(255,255,255,.12)}
+.badge.open{background:#d9b98a;color:#2a2210}
+.cta{display:flex;gap:10px;margin-top:18px;justify-content:center;flex-wrap:wrap}
+.btn{display:inline-block;border-radius:999px;padding:11px 20px;font-weight:700;text-decoration:none;font-size:15px;cursor:pointer;border:0}
+.btn.p{background:var(--terra);color:var(--on-terra)}
+.btn.s{background:transparent;color:var(--hero-ink);border:1px solid rgba(255,255,255,.45)}
+main{padding:20px}
+.box{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:14px}
+.box h2{font-size:26px;color:var(--olive)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .box h2{color:#d9b98a}}
+.hrs{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;margin:10px 0 0;font-size:15px}
+.hrs dt{font-weight:600}.hrs dd{margin:0;color:var(--mut)}
+.hrs .today{color:var(--terra);font-weight:700}
+.ask{display:flex;gap:12px;align-items:center;width:100%;border:2px solid var(--terra);background:var(--card);color:var(--ink);border-radius:14px;padding:14px;font:700 22px "Cormorant Garamond",serif;cursor:pointer;text-align:left}
+.ask span{background:var(--terra);color:#fff;border-radius:50%;width:34px;height:34px;display:grid;place-items:center;flex:none;font:700 17px system-ui}
+.tabs{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin-top:20px;position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);padding:10px 0;z-index:2}
+.fl{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding:2px 0 4px;align-items:center}
+.fl small{color:var(--mut);flex:none}
+button{font:inherit;color:inherit}
+.tab,.chip{flex:none;border:1px solid var(--line);background:var(--chip);border-radius:999px;padding:8px 16px;cursor:pointer;font-weight:600;font-size:15px}
+.tab[aria-selected="true"]{background:var(--olive);color:#fff;border-color:var(--olive)}
+.chip{font-size:14px;padding:6px 12px;font-weight:500}
+.chip[aria-pressed="true"]{background:var(--terra);color:#fff;border-color:var(--terra)}
+button:focus-visible,a:focus-visible{outline:3px solid var(--bronze);outline-offset:2px}
+.dish{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin-top:12px;display:flex;gap:14px;justify-content:space-between}
+.dish h3{font-size:24px;font-weight:700}
+.dish p{margin:6px 0 8px;color:var(--mut);font-size:15px}
+.ic{font-size:16px;letter-spacing:3px}
+.price{font:700 22px "Cormorant Garamond",serif;white-space:nowrap;color:var(--bronze)}
+.empty{color:var(--mut);padding:24px 0;text-align:center}
+.legend{font-size:13px;color:var(--mut);margin-top:24px}
+#chat{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:flex-end;justify-content:center;z-index:10}
+#chat.open{display:flex}
+.panel{background:var(--bg);width:100%;max-width:560px;height:84%;border-radius:20px 20px 0 0;display:flex;flex-direction:column;padding-bottom:env(safe-area-inset-bottom,0px)}
+.ph{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;border-bottom:1px solid var(--line)}
+.ph button{border:0;background:var(--chip);border-radius:50%;width:34px;height:34px;cursor:pointer}
+#log{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px}
+.m{max-width:88%;padding:10px 14px;border-radius:16px;white-space:pre-line}
+.m a{color:var(--terra);font-weight:700}
+.bot{background:var(--card);border:1px solid var(--line);align-self:flex-start}
+.me{background:var(--olive);color:#fff;align-self:flex-end}
+#opts{display:flex;flex-wrap:wrap;gap:8px;padding:10px 16px;border-top:1px solid var(--line);max-height:34%;overflow-y:auto}
+#opts button{border:1px solid var(--terra);background:var(--card);border-radius:999px;padding:7px 13px;cursor:pointer;font-size:14px;font-weight:600}
+#f{display:flex;gap:8px;padding:0 16px 12px}
+#f input{flex:1;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:10px 14px;font:inherit}
+#f button{border:0;background:var(--terra);color:#fff;border-radius:999px;padding:0 18px;font-weight:700;cursor:pointer}
+</style>
+</head>
+<body>
+<header class="hero"><div class="wrap">
+<svg viewBox="0 0 120 112" fill="none" role="img" aria-label="Logo ALBA"><g stroke="#d9b98a" stroke-width="3" stroke-linecap="round"><path d="M48 38a12 12 0 0 1 24 0"/><path d="M40 38a20 20 0 0 1 40 0"/><path d="M32 38a28 28 0 0 1 56 0"/></g><text x="60" y="104" text-anchor="middle" font-family="Cormorant Garamond,Georgia,serif" font-size="74" font-weight="600" fill="currentColor">A</text></svg>
+<h1>ALBA</h1>
+<div class="sub">Cocina de Origen &amp; Brasa</div>
+<p class="desc">Fuego lento, ingredientes de temporada y sabores limpios del Mediterráneo con guiños a la gastronomía local. El vegetal es protagonista; carnes y pescados pasan por nuestra parrilla de leña, y cada plato rinde homenaje al productor local. Un ambiente sofisticado pero relajado, para una comida de negocios o una velada íntima.</p>
+<div id="status" class="badge"></div>
+<div class="cta"><a class="btn p" id="wa" href="#">Reservar por WhatsApp</a><a class="btn s" href="#menu">Ver el menú</a></div>
+</div></header>
+
+<main><div class="wrap">
+<section class="box"><h2>Horarios y ubicación</h2>
+<dl class="hrs" id="hrs"></dl>
+<p style="margin:12px 0 0;font-size:15px"><b>Dirección:</b> Calle de la Ribera #14-28, Barrio El Olivar (Zona Gastronómica)<br><b>WhatsApp / reservas:</b> +57 310 892 4501</p></section>
+
+<button class="ask" id="open"><span aria-hidden="true">?</span>¿Qué te provoca hoy? Pregúntale a ALBA</button>
+
+<div id="menu" class="tabs" role="tablist"></div>
+<div class="fl" id="inc"></div>
+<div class="fl" id="exc"></div>
+<div id="list"></div>
+<p class="legend">🌱 Vegetariano · 🌿 Vegano · 🌾 Sin gluten · 🥛 Lactosa · 🐟 Pescado/marisco · 🥜 Frutos secos · 🥚 Huevo<br>Si tienes alguna alergia, avísale a tu mesero antes de pedir.</p>
+</div></main>
+
+<div id="chat" role="dialog" aria-modal="true" aria-label="Asistente de ALBA"><div class="panel">
+<div class="ph"><h2 style="font-size:26px">Asistente ALBA</h2><button id="close" aria-label="Cerrar">✕</button></div>
+<div id="log" aria-live="polite"></div><div id="opts"></div>
+<form id="f" onsubmit="return false"><input id="q" placeholder="Escribe tu pregunta…" aria-label="Pregunta" autocomplete="off"><button id="go">Enviar</button></form></div></div>
+
+<script>
+const IC={V:"🌱",VG:"🌿",SG:"🌾",L:"🥛",P:"🐟",N:"🥜",H:"🥚"};
+const D=(c,n,p,d,t)=>({c,n,p,d,t});
+const MENU=[
+D("Entradas frías","Burrata Texturizada",38000,"Burrata fresca de búfala sobre compota artesanal de tomates de árbol asados, pesto de albahaca criolla y piñones tostados, con pan de masa madre.",["V","L","N"]),
+D("Entradas frías","Tartar de Pesca del Día & Aguacate",42000,"Pesca fresca de anzuelo marinada en cítricos, aceite de oliva virgen extra, aguacate ahumado y crocantes de plátano verde.",["SG","P"]),
+D("Entradas frías","Carpaccio de Res & Alcaparras Crocantes",39000,"Láminas de lomo de res madurado, vinagreta de mostaza antigua, parmesano madurado 24 meses y rúgula silvestre.",["SG","L"]),
+D("Entradas frías","Tabla Campo & Olivar (para 2)",65000,"Quesos artesanales, jamón serrano, aceitunas marinadas en hierbas de la huerta, hummus de garbanzo al pimentón ahumado y foccacia de la casa. Opción vegetariana a solicitud.",["L","N"]),
+D("Entradas calientes y sopas","Espinacas & Setas a la Brasa",34000,"Setas silvestres salteadas al jerez con crema de coliflor tatemada, aceite de trufa blanca y crujiente de garbanzos.",["VG","SG"]),
+D("Entradas calientes y sopas","Pulpo a las Brasas",48000,"Pulpo tierno glaseado en pimentón de la Vera, sobre emulsión suave de papas criollas y pimientos morrones asados.",["SG","P"]),
+D("Entradas calientes y sopas","Crema de Zapallo & Leche de Coco",28000,"Calabaza asada a la leña, jengibre fresco, semillas de girasol tostadas y un toque de cilantro.",["VG","SG"]),
+D("Parrilla y carnes","Ojo de Bife a la Leña (300 g)",85000,"Corte madurado a la parrilla con chimichurri casero, papas criollas aplastadas con romero y sal marina.",["SG"]),
+D("Parrilla y carnes","Costillar de Cerdo en Panela & Naranja",64000,"Cocinado a baja temperatura durante 12 horas, terminado a la brasa con reducción de cítricos y puré de camote.",["SG"]),
+D("Parrilla y carnes","Pollo Orgánico al Limón & Romero",49000,"Pechuga y muslo deshuesado marinados en hierbas, a la parrilla, con vegetales de temporada salteados al wok.",["SG"]),
+D("Del mar","Pesca Dorada en Salvia & Limón",68000,"Filete de pesca artesanal a la plancha con mantequilla noisette de salvia, puré de yuca a los ajos tiernos y espárragos a la brasa.",["SG","L","P"]),
+D("Del mar","Atún Sellado en Costra de Sésamo",72000,"Lomo de atún fresco sellado, con ensalada tibia de quinoa, edamame, mango y vinagreta de jengibre-soya.",["SG","P"]),
+D("Pastas y arroces","Risotto de Calamar & Tinta",62000,"Arroz carnaroli en caldo concentrado de mariscos, calamar tierno a la parrilla y aioli ligero de ajo negro.",["SG","L","P"]),
+D("Pastas y arroces","Gnocchi de Camote",52000,"Gnocchis artesanales dorados en mantequilla clarificada, salsa de queso de cabra, nueces caramelizadas y rúgula.",["V","L","N","H"]),
+D("Pastas y arroces","Pappardelle al Ragú de Asado",56000,"Pasta fresca de la casa con estofado lento de res a la canela y vino tinto, y pecorino rallado.",["L","H"]),
+D("Pastas y arroces","Bowl Vegano de Garbanzos & Ahumados",45000,"Arroz integral, garbanzos con comino, berenjenas asadas, aguacate, pimientos a la brasa y tahini de sésamo.",["VG","SG"]),
+D("Postres","Volcán de Cacao & Avellana",24000,"Bizcocho tibio de chocolate 70 % con corazón fluido de avellana y helado artesanal de flor de leche.",["V","L","N","H"]),
+D("Postres","Cítricos del Campo & Merengue",22000,"Cremoso de maracuyá y mandarina, crumble de almendras, merengue italiano tostado y sorbete de albahaca.",["V","SG","L","N","H"]),
+D("Postres","Tarta Vasca de Queso Asada",26000,"Tarta de queso horneada a alta temperatura con centro cremoso y coulis de frutos rojos silvestres.",["V","L","H"]),
+D("Bebidas","Cóctel Olivar",36000,"Ginebra artesanal, vermut blanco, infusión de aceituna verde, sal marina y piel de limón Eureka.",[]),
+D("Bebidas","Mezcalita Fuego & Pasión",38000,"Mezcal artesanal, maracuyá, sirope de chile ahumado y escarchado de sal de gusano y tajín.",[]),
+D("Bebidas","Mocktail Alba (sin alcohol)",18000,"Infusión fría de flor de Jamaica, toronja rosada, sirope de romero quemado y agua con gas.",[]),
+D("Bebidas","Limonada de Coco & Jengibre (sin alcohol)",16000,"Leche de coco fresca, limón criollo y un toque sutil de jengibre.",[])
+];
+const cats=[...new Set(MENU.map(m=>m.c))];
+const INC=[["V","🌱 Vegetariano"],["VG","🌿 Vegano"],["SG","🌾 Sin gluten"]];
+const EXC=[["L","Sin lactosa"],["N","Sin frutos secos"],["H","Sin huevo"],["P","Sin pescado"]];
+let cat=cats[0],inc=new Set(),exc=new Set();
+const $=id=>document.getElementById(id),cop=n=>"$"+n.toLocaleString("es-CO");
+const is=(m,k)=>k==="V"?m.t.includes("V")||m.t.includes("VG"):m.t.includes(k);
+const icons=m=>m.t.map(t=>IC[t]).join(" ");
+function render(){
+$("menu").innerHTML=cats.map(c=>`<button class="tab" role="tab" aria-selected="${c===cat}" data-c="${c}">${c}</button>`).join("");
+$("inc").innerHTML="<small>Dieta:</small>"+INC.map(([k,l])=>`<button class="chip" aria-pressed="${inc.has(k)}" data-i="${k}">${l}</button>`).join("");
+$("exc").innerHTML="<small>Evitar:</small>"+EXC.map(([k,l])=>`<button class="chip" aria-pressed="${exc.has(k)}" data-e="${k}">${l}</button>`).join("");
+const it=MENU.filter(m=>m.c===cat&&[...inc].every(k=>is(m,k))&&[...exc].every(k=>!m.t.includes(k)));
+$("list").innerHTML=it.length?it.map(m=>`<article class="dish"><div><h3>${m.n}</h3><p>${m.d}</p><span class="ic" aria-label="Etiquetas">${icons(m)}</span></div><div class="price">${cop(m.p)}</div></article>`).join(""):'<p class="empty">No hay platos con esos filtros en esta categoría. Prueba otra categoría o quita un filtro.</p>';
+}
+document.addEventListener("click",e=>{
+const a=e.target.closest(".tab"),b=e.target.closest("[data-i]"),c=e.target.closest("[data-e]");
+if(a)cat=a.dataset.c;
+if(b){const k=b.dataset.i;inc.has(k)?inc.delete(k):inc.add(k)}
+if(c){const k=c.dataset.e;exc.has(k)?exc.delete(k):exc.add(k)}
+if(a||b||c)render();
+});
+// Horarios (hora de Bogotá)
+const H=[["Domingo",[[12,17]],"12:00 m. – 5:00 p. m. (Brunch & Brasa)"],["Lunes",[],"Cerrado por descanso de personal"],
+["Martes",[[12.5,15.5],[19,22.5]],"12:30 – 3:30 p. m. | 7:00 – 10:30 p. m."],["Miércoles",[[12.5,15.5],[19,22.5]],"12:30 – 3:30 p. m. | 7:00 – 10:30 p. m."],["Jueves",[[12.5,15.5],[19,22.5]],"12:30 – 3:30 p. m. | 7:00 – 10:30 p. m."],
+["Viernes",[[12.5,16],[19,23.5]],"12:30 – 4:00 p. m. | 7:00 – 11:30 p. m."],["Sábado",[[12.5,16],[19,23.5]],"12:30 – 4:00 p. m. | 7:00 – 11:30 p. m."]];
+function now(){const p=new Intl.DateTimeFormat("en-US",{timeZone:"America/Bogota",weekday:"long",hour:"numeric",minute:"numeric",hour12:false}).formatToParts(new Date());
+const g=t=>p.find(x=>x.type===t).value;const wd=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"].indexOf(g("weekday"));return{d:wd,h:(+g("hour")%24)+ +g("minute")/60}}
+function hours(){const n=now();
+$("hrs").innerHTML=[1,2,3,4,5,6,0].map(i=>`<dt class="${i===n.d?'today':''}">${H[i][0]}</dt><dd class="${i===n.d?'today':''}">${H[i][2]}</dd>`).join("");
+const open=H[n.d][1].some(([a,b])=>n.h>=a&&n.h<b);const s=$("status");
+s.textContent=open?"Abierto ahora":(H[n.d][1].length?"Cerrado en este momento":"Hoy cerramos por descanso");s.className="badge"+(open?" open":"")}
+const WA="https://wa.me/573108924501?text="+encodeURIComponent("Hola ALBA, quisiera hacer una reserva.");
+$("wa").href=WA;
+// Asistente
+const L=f=>MENU.filter(f).map(m=>`• ${m.n} (${cop(m.p)})`).join("\n");
+const Q={
+"Recomiéndame algo":()=>"Un recorrido clásico de ALBA:\n• Burrata Texturizada\n• Ojo de Bife a la Leña\n• Tarta Vasca de Queso Asada\nSi prefieres mar: Pulpo a las Brasas y Pesca Dorada en Salvia & Limón.",
+"Opciones veganas":()=>"Platos veganos 🌿:\n"+L(m=>m.t.includes("VG"))+"\nLas bebidas sin alcohol también son una buena opción.",
+"Vegetarianas":()=>"Platos vegetarianos y veganos:\n"+L(m=>is(m,"V")),
+"Sin gluten":()=>"Platos sin gluten 🌾:\n"+L(m=>m.t.includes("SG"))+"\nAvisa al mesero si es por celiaquía.",
+"Sin lactosa":()=>"Platos sin lactosa:\n"+L(m=>m.c!=="Bebidas"&&!m.t.includes("L")),
+"Sin frutos secos":()=>"Platos sin frutos secos:\n"+L(m=>m.c!=="Bebidas"&&!m.t.includes("N"))+"\nAvisa al mesero si tienes alergia.",
+"Del mar":()=>"Del mar 🐟:\n"+L(m=>m.t.includes("P")),
+"Para compartir":()=>"Para compartir:\n"+L(m=>m.c==="Entradas frías"||m.n.startsWith("Pulpo")),
+"Postres":()=>"Postres:\n"+L(m=>m.c==="Postres"),
+"Bebidas":()=>"Bebidas:\n"+L(m=>m.c==="Bebidas"),
+"Horarios":()=>"Mar–Jue: 12:30–3:30 p. m. y 7:00–10:30 p. m.\nVie–Sáb: 12:30–4:00 p. m. y 7:00–11:30 p. m.\nDomingo: 12:00 m.–5:00 p. m. (Brunch & Brasa)\nLunes: cerrado.",
+"Ubicación":()=>"Calle de la Ribera #14-28, Barrio El Olivar (Zona Gastronómica).",
+"Reservar":()=>`Reserva por WhatsApp al +57 310 892 4501: <a href="${WA}" target="_blank" rel="noopener">abrir chat</a>`
+};
+const KW=[[/vegan/,"Opciones veganas"],[/vegetar/,"Vegetarianas"],[/gluten|celiac/,"Sin gluten"],[/lactosa|leche|queso/,"Sin lactosa"],[/nuez|nueces|frutos secos|man[ií]|almendra/,"Sin frutos secos"],[/pescado|mar|marisco|pulpo|atun|atún/,"Del mar"],[/compart|picar/,"Para compartir"],[/postre|dulce/,"Postres"],[/bebida|trago|coctel|cóctel|mocktail|limonada/,"Bebidas"],[/hora|abierto|abren|cierran|domingo|brunch/,"Horarios"],[/direcci|ubica|donde|dónde|llegar/,"Ubicación"],[/reserv|mesa|whatsapp|tel[eé]fono/,"Reservar"],[/recom|sugier|pedir|plato/,"Recomiéndame algo"]];
+function say(t,c,html){const d=document.createElement("div");d.className="m "+c;html?d.innerHTML=t:d.textContent=t;$("log").appendChild(d);$("log").scrollTop=1e9}
+function ask(k,label){say(label||k,"me");setTimeout(()=>say(Q[k](),"bot",k==="Reservar"),250)}
+$("opts").innerHTML=Object.keys(Q).map(k=>`<button>${k}</button>`).join("");
+$("opts").addEventListener("click",e=>{const b=e.target.closest("button");if(b)ask(b.textContent)});
+const TN={V:"vegetariano",VG:"vegano",SG:"sin gluten",L:"contiene lactosa",P:"pescado/marisco",N:"contiene frutos secos",H:"contiene huevo"};
+const SYS=`Eres el asistente virtual de ALBA — Cocina de Origen & Brasa, restaurante en Bogotá (Colombia). Habla siempre en el idioma del cliente (por defecto español), con tono cálido, elegante y breve (máximo 5 frases o una lista corta).
+REGLAS: responde solo sobre ALBA (menú, ingredientes, dietas, alergias, horarios, ubicación, reservas, maridajes y recomendaciones basadas en el menú). Usa únicamente la información de abajo; si algo no está, dilo y sugiere preguntar al mesero o escribir por WhatsApp al +57 310 892 4501. Nunca inventes platos, precios, ingredientes ni promociones. En temas de alergias o dietas, usa las etiquetas del menú pero recuerda siempre confirmar con el mesero antes de pedir; las bebidas no tienen información de alérgenos. Si preguntan algo ajeno al restaurante, redirige amablemente al menú.
+INFORMACIÓN:
+Descripción: fuego lento, ingredientes de temporada, sabores mediterráneos con guiños locales, parrilla de leña, vegetal protagonista. Ambiente sofisticado pero relajado, ideal para comida de negocios o velada íntima.
+Dirección: Calle de la Ribera #14-28, Barrio El Olivar (Zona Gastronómica). WhatsApp/reservas: +57 310 892 4501.
+Horarios: Martes a jueves 12:30–3:30 p. m. y 7:00–10:30 p. m.; viernes y sábado 12:30–4:00 p. m. y 7:00–11:30 p. m.; domingo 12:00 m.–5:00 p. m. (Menú Brunch & Brasa); lunes cerrado.
+MENÚ (nombre | categoría | precio COP | descripción | etiquetas):
+`+MENU.map(m=>`${m.n} | ${m.c} | $${m.p.toLocaleString("es-CO")} | ${m.d} | ${m.t.map(t=>TN[t]).join(", ")||"sin etiquetas"}`).join("\n");
+const HIST=[];let busy=false;
+$("f").addEventListener("submit",async()=>{
+const v=$("q").value.trim();if(!v||busy)return;$("q").value="";say(v,"me");
+let sample=null;try{sample=await claude.use("sample")}catch(e){}
+if(!sample){const h=KW.find(([r])=>r.test(v.toLowerCase()));setTimeout(()=>h?say(Q[h[1]](),"bot",h[1]==="Reservar"):say("No tengo esa información. Toca una de las opciones de abajo o escríbenos por WhatsApp al +57 310 892 4501.","bot"),250);return}
+busy=true;HIST.push({r:"Cliente",t:v});
+const d=document.createElement("div");d.className="m bot";d.textContent="Escribiendo…";$("log").appendChild(d);
+try{
+const prompt=SYS+"\n\nCONVERSACIÓN:\n"+HIST.slice(-10).map(x=>x.r+": "+x.t).join("\n")+"\nResponde ahora como el asistente de ALBA, solo con el texto de la respuesta.";
+const r=await sample(prompt,{cache:false,modelTier:"quick",onText:({text})=>{d.textContent=text;$("log").scrollTop=1e9}});
+d.textContent=r.text;HIST.push({r:"Asistente",t:r.text});
+}catch(e){
+HIST.pop();d.textContent=(e&&e.code==="not_granted")?"Para usar el asistente libre debes permitir el acceso. Mientras tanto, toca una de las opciones de abajo.":"Ahora mismo no puedo responder. Toca una de las opciones de abajo o escríbenos por WhatsApp al +57 310 892 4501.";
+}
+busy=false;$("log").scrollTop=1e9;
+});
+$("open").onclick=()=>{$("chat").classList.add("open");if(!$("log").children.length)say("¡Bienvenido a ALBA! Puedo ayudarte con el menú, dietas y alergias, horarios y reservas. ¿Qué necesitas?","bot")};
+$("close").onclick=()=>$("chat").classList.remove("open");
+$("chat").addEventListener("click",e=>{if(e.target.id==="chat")$("chat").classList.remove("open")});
+render();hours();
+</script>
+</body>
+</html>
